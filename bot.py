@@ -16,7 +16,7 @@ class GetMeResponse():
 
 
 class UpdateResponse():
-    def __init__(self, response: Dict[str, Union[str, int]]) -> None:
+    def __init__(self, response: list) -> None:
         self.id = response['update_id']
 
         try:
@@ -52,7 +52,7 @@ class TelegramBot:
 
         return list(map(lambda update: UpdateResponse(update), response))
 
-    def __sendRequest(self, method: TelegramMethod) -> Dict[str, Union[str, int]]:
+    def __sendRequest(self, method: TelegramMethod) -> list:
         response = request.urlopen(self.tgUrl.format(method=method.value))
 
         return json.loads(response.read().decode())['result']
